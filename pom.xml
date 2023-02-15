@@ -7,9 +7,14 @@
   <groupId>com.burak</groupId>
   <artifactId>onepay</artifactId>
   <version>1.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
 
   <name>Onepay</name>
   <url>https://github.com/alexeyburak/onepay</url>
+
+  <modules>
+    <module>user</module>
+  </modules>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
