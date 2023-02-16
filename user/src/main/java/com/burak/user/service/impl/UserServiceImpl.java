@@ -1,6 +1,7 @@
 package com.burak.user.service.impl;
 
 import com.burak.user.dto.UserDTO;
+import com.burak.user.exception.UserNotFoundException;
 import com.burak.user.model.User;
 import com.burak.user.repository.UserRepository;
 import com.burak.user.service.UserService;
@@ -32,24 +33,27 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserById(Long id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("error"));
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
     }
 
     @Override
     public void addNewUser(UserDTO user) {
-        userRepository.save(
-                User.builder()
-                        .name(user.getName())
-                        .password(user.getPassword())
-                        .joinedAt(LocalDateTime.now())
-                        .build()
-        );
+        User userToSave = User.builder()
+                .name(user.getName())
+                .password(user.getPassword())
+                .joinedAt(LocalDateTime.now())
+                .build();
+
+        userRepository.saveAndFlush(userToSave);
+        log.info("Add new user. Id: {}", userToSave.getId());
     }
 
     @Override
     public void deleteById(Long id) {
         User user = this.getUserById(id);
+
         userRepository.delete(user);
+        log.info("Delete user. Id: {}", id);
     }
 
     @Override
@@ -60,5 +64,6 @@ public class UserServiceImpl implements UserService {
         user.setPassword(updatedUser.getPassword());
 
         userRepository.save(user);
+        log.info("Update user. Id: {}", id);
     }
 }

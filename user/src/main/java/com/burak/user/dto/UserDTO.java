@@ -15,4 +15,5 @@ import lombok.experimental.FieldDefaults;
 public class UserDTO {
     String name;
     String password;
+    String surname;
 }

@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
@@ -28,6 +29,8 @@ public class User {
     @GeneratedValue
     Long id;
     String name;
+    String surname;
     String password;
+    BigDecimal balance;
     LocalDateTime joinedAt;
 }
