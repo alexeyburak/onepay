@@ -17,3 +17,6 @@
 
 # Host files
 .DS_Store
+
+# Confidance files
+application-dev.yaml
