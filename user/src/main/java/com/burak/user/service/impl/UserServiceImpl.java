@@ -1,4 +1,7 @@
-package com.burak.user.service;
+package com.burak.user.service.impl;
+
+import com.burak.user.service.UserService;
+import org.springframework.stereotype.Service;
 
 /**
  * onepay
@@ -6,5 +9,6 @@ package com.burak.user.service;
  * Feb 2023
  */
 
+@Service
 public class UserServiceImpl implements UserService {
 }
