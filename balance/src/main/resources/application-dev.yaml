@@ -1,5 +1,0 @@
-spring:
-  datasource:
-    username: root
-    password: alexeyburak
-    url: "jdbc:mysql://localhost:3306/onepay"
