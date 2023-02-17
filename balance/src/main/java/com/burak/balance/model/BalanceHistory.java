@@ -1,5 +1,6 @@
 package com.burak.balance.model;
 
+import com.burak.balance.model.enums.OperationType;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,6 +23,7 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Table(name = "balance_history")
 public class BalanceHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,8 +36,18 @@ public class BalanceHistory {
     @Column(name = "sum")
     BigDecimal sum;
     @Column(name = "date_Crated_At")
-    LocalDate dateCratedAt;
+    LocalDate dateCreatedAt;
     @Column(name = "time_Crated_At")
-    LocalTime timeCratedAt;
+    LocalTime timeCreatedAt;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type")
+    OperationType type;
+
+    @PrePersist
+    void initialize() {
+        sum = BigDecimal.valueOf(0L);
+        dateCreatedAt = LocalDate.now();
+        timeCreatedAt = LocalTime.now();
+    }
 
 }
