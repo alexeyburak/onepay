@@ -55,9 +55,9 @@ public class UserController {
         return ResponseEntity.ok("Update user.");
     }
 
-    @PatchMapping("/{id}/{newBalance}")
+    @PatchMapping("/{id}")
     public ResponseEntity<String> changeBalance(@PathVariable("id") Long id,
-                                                @PathVariable("newBalance") BigDecimal balance) {
+                                                @RequestParam("newBalance") BigDecimal balance) {
         userService.updateBalanceById(id, balance);
         return new ResponseEntity<>(HttpStatus.OK);
     }
