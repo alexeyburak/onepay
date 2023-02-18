@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -65,5 +66,14 @@ public class UserServiceImpl implements UserService {
 
         userRepository.save(user);
         log.info("Update user. Id: {}", id);
+    }
+
+    @Override
+    public void updateBalanceById(Long id, BigDecimal balance) {
+        User user = this.getUserById(id);
+        user.setBalance(balance);
+
+        userRepository.save(user);
+        log.info("Change balance. User id: {}", id);
     }
 }
