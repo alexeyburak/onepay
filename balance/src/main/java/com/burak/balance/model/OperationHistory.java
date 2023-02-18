@@ -23,8 +23,8 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = "balance_history")
-public class BalanceHistory {
+@Table(name = "operation_history")
+public class OperationHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
