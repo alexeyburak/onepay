@@ -4,10 +4,7 @@ import com.burak.balance.service.impl.BalanceServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 
@@ -28,6 +25,24 @@ public class BalanceController {
     public ResponseEntity<BigDecimal> getUserBalance(@PathVariable("userId") long userId) {
         BigDecimal balance = balanceService.getUserBalance(userId);
         return new ResponseEntity<>(balance, HttpStatus.OK);
+    }
+
+    @PostMapping("/{userId}/deb")
+    public ResponseEntity<String> debitingFromUserBalance(@PathVariable("userId") long userId,
+                                                          @RequestParam("sum") BigDecimal sum) {
+        boolean changingUserBalance = balanceService.debitingFundsFromBankAccount(userId, sum);
+
+        return changingUserBalance ?
+                new ResponseEntity<>("Successfully debiting.", HttpStatus.OK) :
+                new ResponseEntity<>("Error debiting.", HttpStatus.LOCKED);
+
+    }
+
+    @PostMapping("/{userId}/ent")
+    public ResponseEntity<String> entranceToUserBalance(@PathVariable("userId") long userId,
+                                                        @RequestParam("sum") BigDecimal sum) {
+        balanceService.entranceFundsToBankAccount(userId, sum);
+        return ResponseEntity.ok("Successfully entrance " + sum);
     }
 
 }
