@@ -10,4 +10,7 @@ import java.math.BigDecimal;
 
 public interface BalanceService {
     BigDecimal getUserBalance(long userId);
+    boolean debitingFundsFromBankAccount(long userId, BigDecimal sum);
+    void entranceFundsToBankAccount(long userId, BigDecimal sum);
+    void setNewBalanceForUserClient(long id, BigDecimal newBalance);
 }
