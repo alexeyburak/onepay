@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -52,6 +53,13 @@ public class UserController {
                                              @RequestBody UserDTO user) {
         userService.updateById(id, user);
         return ResponseEntity.ok("Update user.");
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<String> changeBalance(@PathVariable("id") Long id,
+                                                @RequestParam("newBalance") BigDecimal balance) {
+        userService.updateBalanceById(id, balance);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

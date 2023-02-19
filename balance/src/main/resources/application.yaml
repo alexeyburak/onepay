@@ -1,9 +1,9 @@
 server:
-  port: 6000
+  port: 6001
 
 spring:
   application:
-    name: user
+    name: balance
   datasource:
     username:
     password:
