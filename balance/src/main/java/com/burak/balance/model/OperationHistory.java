@@ -1,10 +1,8 @@
 package com.burak.balance.model;
 
+import com.burak.balance.model.enums.OperationStatus;
 import com.burak.balance.model.enums.OperationType;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
@@ -24,6 +22,8 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "operation_history")
+@Getter
+@Setter
 public class OperationHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,8 +31,6 @@ public class OperationHistory {
     Long id;
     @Column(name = "user_Id")
     Long userId;
-    @Column(name = "bank_Number")
-    Long bankNumber;
     @Column(name = "sum")
     BigDecimal sum;
     @Column(name = "date_Crated_At")
@@ -42,10 +40,12 @@ public class OperationHistory {
     @Enumerated(EnumType.STRING)
     @Column(name = "type")
     OperationType type;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    OperationStatus status;
 
     @PrePersist
     void initialize() {
-        sum = BigDecimal.valueOf(0L);
         dateCreatedAt = LocalDate.now();
         timeCreatedAt = LocalTime.now();
     }

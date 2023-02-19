@@ -1,5 +1,6 @@
 package com.burak.balance.service;
 
+import com.burak.balance.dto.CommitOperationDTO;
 import com.burak.balance.model.OperationHistory;
 
 import java.util.List;
@@ -12,4 +13,5 @@ import java.util.List;
 
 public interface OperationService {
     List<OperationHistory> getUserOperationHistory(Long id);
+    void commitOperation(CommitOperationDTO operation);
 }
