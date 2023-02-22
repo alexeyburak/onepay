@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -67,5 +68,25 @@ public class UserServiceImplTest {
         Assertions.assertEquals(user.getName(), updatedUser.getName());
         Assertions.assertEquals(user.getSurname(), updatedUser.getSurname());
         Assertions.assertEquals(user.getPassword(), updatedUser.getPassword());
+    }
+
+    @Test
+    void updateBalanceById_UserIdAndChangedBalance_ShouldSetNewBalanceAndSave() {
+        //given
+        final long userId = 1L;
+        User user = User.builder()
+                .id(userId)
+                .balance(BigDecimal.valueOf(100))
+                .build();
+        BigDecimal updatedBalance = BigDecimal.valueOf(1000);
+
+        //when
+        Mockito.when(userRepository.findById(userId)).thenReturn(Optional.of(user));
+        userService.updateBalanceById(userId, updatedBalance);
+
+        //then
+        Assertions.assertNotNull(user);
+        Assertions.assertNotNull(user.getBalance());
+        Assertions.assertEquals(user.getBalance(), updatedBalance);
     }
 }
