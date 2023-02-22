@@ -91,6 +91,19 @@ public class UserServiceImplTest {
     }
 
     @Test
+    void addNewUser_UserDTO_ShouldSaveUser() {
+        //given
+        User user = User.builder().build();
+        UserDTO userDTO = UserDTO.builder().build();
+
+        //when
+        userService.addNewUser(userDTO);
+
+        //then
+        Mockito.verify(userRepository, Mockito.times(1)).saveAndFlush(user);
+    }
+
+    @Test
     void deleteById_UserId_ShouldDeleteUserEntity() {
         //given
         final long userId = 1L;
