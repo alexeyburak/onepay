@@ -1,7 +1,6 @@
 package com.burak.user.dto;
 
-import lombok.AccessLevel;
-import lombok.Data;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 /**
@@ -12,8 +11,11 @@ import lombok.experimental.FieldDefaults;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserDTO {
     String name;
-    String password;
     String surname;
+    String password;
 }

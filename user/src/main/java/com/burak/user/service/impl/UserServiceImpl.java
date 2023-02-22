@@ -41,6 +41,7 @@ public class UserServiceImpl implements UserService {
     public void addNewUser(UserDTO user) {
         User userToSave = User.builder()
                 .name(user.getName())
+                .surname(user.getSurname())
                 .password(user.getPassword())
                 .joinedAt(LocalDateTime.now())
                 .build();
@@ -62,6 +63,7 @@ public class UserServiceImpl implements UserService {
         User user = this.getUserById(id);
 
         user.setName(updatedUser.getName());
+        user.setSurname(updatedUser.getSurname());
         user.setPassword(updatedUser.getPassword());
 
         userRepository.save(user);
