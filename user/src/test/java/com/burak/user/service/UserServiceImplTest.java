@@ -89,4 +89,18 @@ public class UserServiceImplTest {
         Assertions.assertNotNull(user.getBalance());
         Assertions.assertEquals(user.getBalance(), updatedBalance);
     }
+
+    @Test
+    void deleteById_UserId_ShouldDeleteUserEntity() {
+        //given
+        final long userId = 1L;
+        User user = User.builder().build();
+
+        //when
+        Mockito.when(userRepository.findById(userId)).thenReturn(Optional.of(user));
+        userService.deleteById(userId);
+
+        //then
+        Mockito.verify(userRepository, Mockito.times(1)).delete(user);
+    }
 }
