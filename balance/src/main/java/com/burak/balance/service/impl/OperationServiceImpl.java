@@ -10,7 +10,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * onepay
@@ -27,11 +29,18 @@ public class OperationServiceImpl implements OperationService {
     private final OperationHistoryDTOMapper historyDTOMapper;
 
     @Override
-    public List<OperationHistoryDTO> getUserOperationHistory(Long id) {
-        return operationRepository.getOperationHistoriesByUserId(id)
+    public List<OperationHistoryDTO> getUserOperationHistory(Long id, LocalDate dateFrom) {
+        Stream<OperationHistoryDTO> operations = operationRepository
+                .getOperationHistoriesByUserId(id)
                 .stream()
-                .map(historyDTOMapper)
-                .toList();
+                .map(historyDTOMapper);
+
+        return dateFrom != null ?
+                operations
+                        .filter(operation -> operation.getDateCreatedAt().isAfter(dateFrom))
+                        .toList() :
+                operations
+                        .toList();
     }
 
     @Override

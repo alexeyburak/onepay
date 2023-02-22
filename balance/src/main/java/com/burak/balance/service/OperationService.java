@@ -3,6 +3,7 @@ package com.burak.balance.service;
 import com.burak.balance.dto.CommitOperationDTO;
 import com.burak.balance.dto.OperationHistoryDTO;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -12,6 +13,6 @@ import java.util.List;
  */
 
 public interface OperationService {
-    List<OperationHistoryDTO> getUserOperationHistory(Long id);
+    List<OperationHistoryDTO> getUserOperationHistory(Long id, LocalDate dateFrom);
     void commitOperation(CommitOperationDTO operation);
 }
