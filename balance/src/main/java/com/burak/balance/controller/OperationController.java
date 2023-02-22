@@ -1,6 +1,6 @@
 package com.burak.balance.controller;
 
-import com.burak.balance.model.OperationHistory;
+import com.burak.balance.dto.OperationHistoryDTO;
 import com.burak.balance.service.impl.OperationServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,8 +25,8 @@ public class OperationController {
     private final OperationServiceImpl operationService;
 
     @GetMapping("/user/{id}")
-    public ResponseEntity<List<OperationHistory>> getUserOperationHistory(@PathVariable Long id) {
-        List<OperationHistory> operations = operationService.getUserOperationHistory(id);
+    public ResponseEntity<List<OperationHistoryDTO>> getUserOperationHistory(@PathVariable Long id) {
+        List<OperationHistoryDTO> operations = operationService.getUserOperationHistory(id);
         return new ResponseEntity<>(operations, HttpStatus.OK);
     }
 }
