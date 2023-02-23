@@ -17,6 +17,7 @@ public class OperationHistoryDTOMapper implements Function<OperationHistory, Ope
     @Override
     public OperationHistoryDTO apply(OperationHistory operationHistory) {
         return OperationHistoryDTO.builder()
+                .id(operationHistory.getId())
                 .sum(operationHistory.getSum())
                 .dateCreatedAt(operationHistory.getDateCreatedAt())
                 .timeCreatedAt(operationHistory.getTimeCreatedAt())

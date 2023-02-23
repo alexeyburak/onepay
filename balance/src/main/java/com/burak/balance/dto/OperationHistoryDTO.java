@@ -21,6 +21,7 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OperationHistoryDTO {
+    long id;
     BigDecimal sum;
     LocalDate dateCreatedAt;
     LocalTime timeCreatedAt;
