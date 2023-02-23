@@ -24,10 +24,16 @@ public class OperationController {
     private final OperationServiceImpl operationService;
 
     @GetMapping("/user/{id}")
-    public ResponseEntity<List<OperationHistoryDTO>> getUserOperationHistory(@PathVariable Long id,
+    public ResponseEntity<List<OperationHistoryDTO>> getUserOperationHistory(@PathVariable("id") Long id,
                                                                              @RequestParam(name = "dateFrom", required = false)
                                                                              @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateFrom) {
         List<OperationHistoryDTO> operations = operationService.getUserOperationHistory(id, dateFrom);
         return new ResponseEntity<>(operations, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteOperation(@PathVariable("id") Long id) {
+        operationService.deleteById(id);
+        return ResponseEntity.ok("Delete operation.");
     }
 }

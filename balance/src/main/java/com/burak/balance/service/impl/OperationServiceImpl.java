@@ -2,6 +2,7 @@ package com.burak.balance.service.impl;
 
 import com.burak.balance.dto.CommitOperationDTO;
 import com.burak.balance.dto.OperationHistoryDTO;
+import com.burak.balance.exception.OperationNotFoundException;
 import com.burak.balance.model.OperationHistory;
 import com.burak.balance.repository.OperationRepository;
 import com.burak.balance.service.OperationService;
@@ -27,6 +28,12 @@ public class OperationServiceImpl implements OperationService {
 
     private final OperationRepository operationRepository;
     private final OperationHistoryDTOMapper historyDTOMapper;
+
+    @Override
+    public OperationHistory getOperationHistoryById(long id) {
+        return operationRepository.findById(id)
+                .orElseThrow(() -> new OperationNotFoundException("Operation not found. Id: " + id));
+    }
 
     @Override
     public List<OperationHistoryDTO> getUserOperationHistory(Long id, LocalDate dateFrom) {
@@ -56,5 +63,11 @@ public class OperationServiceImpl implements OperationService {
                         .build()
         );
         log.info("Commit operation. User id: {}", userId);
+    }
+
+    @Override
+    public void deleteById(long id) {
+        operationRepository.deleteById(id);
+        log.info("Delete operation. Id: {}", id);
     }
 }
