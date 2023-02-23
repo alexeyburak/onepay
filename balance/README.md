@@ -18,6 +18,7 @@ Success code: 200
 ````
 Link: /api/operations/{userId}
 Path parameter: ID of the user being founded 
+Param (required = false): Sorting from date
 Return: list of all user operations 
 Success code: 200
 ````
@@ -71,3 +72,13 @@ Return: String report message
 Success code: 200
 ````
 
+> DELETE
+
+### Delete operation by id
+
+````
+Link: /api/operations/{id}
+Path parameter: ID of the operation being deleted
+Return: String report message
+Success code: 200
+````

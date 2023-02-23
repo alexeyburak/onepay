@@ -1,16 +1,20 @@
 package com.burak.balance.service.impl;
 
 import com.burak.balance.dto.CommitOperationDTO;
+import com.burak.balance.dto.OperationHistoryDTO;
+import com.burak.balance.exception.OperationNotFoundException;
 import com.burak.balance.model.OperationHistory;
-import com.burak.balance.model.enums.OperationType;
 import com.burak.balance.repository.OperationRepository;
 import com.burak.balance.service.OperationService;
+import com.burak.balance.service.mapper.OperationHistoryDTOMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * onepay
@@ -24,10 +28,28 @@ import java.util.List;
 public class OperationServiceImpl implements OperationService {
 
     private final OperationRepository operationRepository;
+    private final OperationHistoryDTOMapper historyDTOMapper;
 
     @Override
-    public List<OperationHistory> getUserOperationHistory(Long id) {
-        return operationRepository.getOperationHistoriesByUserId(id);
+    public OperationHistory getOperationHistoryById(long id) {
+        return operationRepository.findById(id)
+                .orElseThrow(() -> new OperationNotFoundException("Operation not found. Id: " + id));
+    }
+
+    @Override
+    public List<OperationHistoryDTO> getUserOperationHistory(Long id, LocalDate dateFrom) {
+        Stream<OperationHistoryDTO> operations = operationRepository
+                .getOperationHistoriesByUserId(id)
+                .stream()
+                .map(historyDTOMapper)
+                .sorted(OperationHistoryDTO::compareTo);
+
+        return dateFrom != null ?
+                operations
+                        .filter(operation -> operation.getDateCreatedAt().isAfter(dateFrom))
+                        .toList() :
+                operations
+                        .toList();
     }
 
     @Override
@@ -43,5 +65,11 @@ public class OperationServiceImpl implements OperationService {
                         .build()
         );
         log.info("Commit operation. User id: {}", userId);
+    }
+
+    @Override
+    public void deleteById(long id) {
+        operationRepository.deleteById(id);
+        log.info("Delete operation. Id: {}", id);
     }
 }
