@@ -1,7 +1,10 @@
 package com.burak.notification.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.burak.notification.model.EmailType;
+import com.burak.notification.service.impl.NotificationServiceImpl;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * onepay
@@ -11,6 +14,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/notifications")
+@RequiredArgsConstructor
 public class NotificationController {
+    private final NotificationServiceImpl notificationService;
+
+    @PostMapping("/{userId}")
+    public ResponseEntity<String> notificateUser(@PathVariable("userId") Long userId,
+                                         @RequestParam("type") EmailType type) {
+        notificationService.sendNotification(userId, type);
+        return ResponseEntity.ok("Send notification successfully");
+    }
 
 }
