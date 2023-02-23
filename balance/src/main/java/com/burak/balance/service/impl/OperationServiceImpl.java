@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -40,7 +41,8 @@ public class OperationServiceImpl implements OperationService {
         Stream<OperationHistoryDTO> operations = operationRepository
                 .getOperationHistoriesByUserId(id)
                 .stream()
-                .map(historyDTOMapper);
+                .map(historyDTOMapper)
+                .sorted(OperationHistoryDTO::compareTo);
 
         return dateFrom != null ?
                 operations

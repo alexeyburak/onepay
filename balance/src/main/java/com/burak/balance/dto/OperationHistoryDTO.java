@@ -20,11 +20,20 @@ import java.time.LocalTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class OperationHistoryDTO {
+public class OperationHistoryDTO implements Comparable<OperationHistoryDTO> {
     long id;
     BigDecimal sum;
     LocalDate dateCreatedAt;
     LocalTime timeCreatedAt;
     OperationType type;
     OperationStatus status;
+
+    @Override
+    public int compareTo(OperationHistoryDTO o) {
+        boolean isDatesEquals = this.getDateCreatedAt().isEqual(o.getDateCreatedAt());
+        if (isDatesEquals)
+            return o.getTimeCreatedAt().compareTo(this.getTimeCreatedAt());
+
+        return o.getDateCreatedAt().compareTo(this.getDateCreatedAt());
+    }
 }
