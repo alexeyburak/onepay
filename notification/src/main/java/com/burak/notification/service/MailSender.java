@@ -8,7 +8,6 @@ import com.burak.notification.model.EmailType;
  * Feb 2023
  */
 
-@FunctionalInterface
-public interface NotificationService {
-    void sendNotification(Long userId, EmailType type);
+public interface MailSender {
+    void greetingEmail(long userId, EmailType type);
 }
