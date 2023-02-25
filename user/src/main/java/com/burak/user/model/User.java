@@ -3,10 +3,7 @@ package com.burak.user.model;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -26,11 +23,19 @@ import java.time.LocalDateTime;
 @Table(name = "users")
 public class User {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     Long id;
+    @Column(name = "name")
     String name;
+    @Column(name = "surname")
     String surname;
+    @Column(name = "email")
+    String email;
+    @Column(name = "password")
     String password;
+    @Column(name = "balance")
     BigDecimal balance;
+    @Column(name = "joined_At")
     LocalDateTime joinedAt;
 }

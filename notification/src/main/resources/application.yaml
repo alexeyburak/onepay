@@ -1,0 +1,15 @@
+server:
+  port: 6002
+
+spring:
+  application:
+    name: notification
+  mail:
+    host:
+    username:
+    password:
+    port:
+    protocol:
+
+mail:
+  debug:

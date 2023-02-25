@@ -1,10 +1,9 @@
-package com.burak.balance.dto;
+package com.burak.notification.dto;
 
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
@@ -16,11 +15,8 @@ import java.time.LocalDateTime;
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserDTO {
-    long id;
     String name;
     String surname;
     String email;
-    String password;
-    BigDecimal balance;
     LocalDateTime joinedAt;
 }
