@@ -7,5 +7,5 @@ package com.burak.notification.model;
  */
 
 public enum EmailType {
-    GREETING
+    GREETING, CHANGE_PASSWORD, DAILY
 }
