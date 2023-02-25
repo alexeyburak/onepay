@@ -10,5 +10,5 @@ import com.burak.notification.model.EmailType;
 
 @FunctionalInterface
 public interface NotificationService {
-    void sendNotification(Long userId, EmailType type);
+    void sendNotification(long userId, EmailType type);
 }

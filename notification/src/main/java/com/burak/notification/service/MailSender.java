@@ -1,6 +1,6 @@
 package com.burak.notification.service;
 
-import com.burak.notification.model.EmailType;
+import com.burak.notification.dto.UserDTO;
 
 /**
  * onepay
@@ -9,5 +9,7 @@ import com.burak.notification.model.EmailType;
  */
 
 public interface MailSender {
-    void greetingEmail(long userId, EmailType type);
+    void greetingEmail(UserDTO user);
+    void changePasswordEmail(UserDTO user);
+    void dailyEmail(UserDTO user);
 }

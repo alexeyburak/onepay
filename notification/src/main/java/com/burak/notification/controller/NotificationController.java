@@ -20,7 +20,7 @@ public class NotificationController {
 
     @PostMapping("/{userId}")
     public ResponseEntity<String> notificateUser(@PathVariable("userId") Long userId,
-                                         @RequestParam("type") EmailType type) {
+                                                 @RequestParam("type") EmailType type) {
         notificationService.sendNotification(userId, type);
         return ResponseEntity.ok("Send notification successfully");
     }

@@ -35,7 +35,7 @@ public abstract class AbstractMailSender implements MailSender {
             mimeMessageHelper.setSubject(subject);
             mimeMessageHelper.setText(message, true);
 
-            mailSender.send(mimeMessage);
+            new Thread(() -> mailSender.send(mimeMessage));
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
