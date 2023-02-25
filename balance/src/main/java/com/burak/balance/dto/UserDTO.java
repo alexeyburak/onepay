@@ -19,6 +19,7 @@ public class UserDTO {
     long id;
     String name;
     String surname;
+    String email;
     String password;
     BigDecimal balance;
     LocalDateTime joinedAt;
